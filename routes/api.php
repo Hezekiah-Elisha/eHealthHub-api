@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AmbulanceController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,7 @@ Route::get('/', function (Request $request){
 Route::group(['prefix'=>'auth'], function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
-    Route::get('users', [AuthController::class, 'getUsers'])->middleware('auth:sanctum');
+    Route::get('users', [AuthController::class, 'getUsers']);
     Route::delete('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
     Route::post('refresh', [AuthController::class, 'refresh'])->middleware('auth:sanctum');
     Route::get('user', [AuthController::class, 'user'])->middleware('auth:sanctum');
@@ -37,3 +38,6 @@ Route::group(['prefix' => 'ambulances'], function () {
     Route::put('/{ambulance}', [AmbulanceController::class, 'update'])->middleware('auth:sanctum');
     Route::delete('/{ambulance}', [AmbulanceController::class, 'destroy'])->middleware('auth:sanctum');
 });
+
+// Route::group(['prefix' => 'appointments'], Appo);
+Route::apiResource('appointments', AppointmentController::class);
